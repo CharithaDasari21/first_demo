@@ -1,0 +1,233 @@
+package datastructures;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+class projectDetails {
+    private int id;
+    private String name;
+    private String manager;
+    private String domain;
+    private double cost;
+    private int teamSize;
+    
+    // Constructor
+    public projectDetails(int id, String name, String manager, String domain, double cost, int teamSize) {
+        this.id = id;
+        this.name = name;
+        this.manager = manager;
+        this.domain = domain;
+        this.cost = cost;
+        this.teamSize = teamSize;
+    }
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public int getTeamSize() {
+        return teamSize;
+    }
+
+    public void setTeamSize(int teamSize) {
+        this.teamSize = teamSize;
+    }
+
+    // toString() method for displaying project details
+    @Override
+    public String toString() {
+        return "Project{id=" + id + ", name='" + name + "', manager='" + manager + "', domain='" + domain + "', cost=" + cost + ", teamSize=" + teamSize + "}";
+    }
+}
+
+public class Project {
+
+    // Method to load projects into HashSet
+    private static void loadProjects(Set<projectDetails> projectSet) {
+        projectDetails p1 = new projectDetails(101, "RFID", "Rani", "PAYMENT", 10012.50, 4);
+        projectDetails p2 = new projectDetails(123, "MLDS", "Sanju", "HEALTHCARE", 12562.75, 3);
+        projectDetails p3 = new projectDetails(234, "DS", "kiki", "RAIL-ROAD", 2435.87, 5);
+        projectDetails p4 = new projectDetails(645, "AI", "Raju", "INSURANCE", 3687.50, 2);
+        projectDetails p5 = new projectDetails(153, "PPS", "Kumari", "PAYMENT", 4532.50, 4);
+        projectDetails p6 = new projectDetails(543, "CS", "Sonal", "HEALTHCARE", 15623.75, 3);
+        projectDetails p7 = new projectDetails(464, "IOT", "Pranav", "RAIL-ROAD", 8473.87, 5);
+        projectDetails p8 = new projectDetails(735, "FSWD", "Jashu", "INSURANCE", 25165.50, 2);
+        
+        projectSet.add(p1);
+        projectSet.add(p2);
+        projectSet.add(p3);
+        projectSet.add(p4);
+        projectSet.add(p5);
+        projectSet.add(p6);
+        projectSet.add(p7);
+        projectSet.add(p8);
+    }
+
+    // Method to display all projects in the set
+    private static void displayProjects(Set<projectDetails> projectSet) {
+        System.out.println("---Projects in HashSet----");
+        for (projectDetails project : projectSet) {
+            System.out.println(project);
+        }
+    }
+
+    // Method to find a given project by its name
+    private static boolean findProjectByName(Set<projectDetails> projectSet, String projectName) {
+        for (projectDetails project : projectSet) {
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Method to find all projects in the same domain
+    private static void findProjectsByDomain(Set<projectDetails> projectSet, String domain) {
+        System.out.println("Projects in the domain: " + domain);
+        for (projectDetails project : projectSet) {
+            if (project.getDomain().equalsIgnoreCase(domain)) {
+                System.out.println(project);
+            }
+        }
+    }
+
+    // Method to calculate the total cost of projects in a given domain
+    private static double totalCostByDomain(Set<projectDetails> projectSet, String domain) {
+        double totalCost = 0;
+        for (projectDetails project : projectSet) {
+            if (project.getDomain().equalsIgnoreCase(domain)) {
+                totalCost += project.getCost();
+            }
+        }
+        return totalCost;
+    }
+
+    // Method to find projects handled by a manager
+    private static void findProjectsByManager(Set<projectDetails> projectSet, String manager) {
+        System.out.println("Projects handled by manager: " + manager);
+        for (projectDetails project : projectSet) {
+            if (project.getManager().equalsIgnoreCase(manager)) {
+                System.out.println(project);
+            }
+        }
+    }
+
+    // Method to change the team size for a given project
+    private static void changeTeamSize(Set<projectDetails> projectSet, String projectName, int newTeamSize) {
+        for (projectDetails project : projectSet) {
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                project.setTeamSize(newTeamSize);
+                System.out.println("Updated project: " + project);
+            }
+        }
+    }
+
+    // Method to change the domain of a given project
+    private static void changeDomain(Set<projectDetails> projectSet, String projectName, String newDomain) {
+        for (projectDetails project : projectSet) {
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                project.setDomain(newDomain);
+                System.out.println("Updated project: " + project);
+            }
+        }
+    }
+
+    // Method to remove a project by name
+    private static void removeProjectByName(Set<projectDetails> projectSet, String projectName) {
+        Iterator<projectDetails> iterator = projectSet.iterator();
+        while (iterator.hasNext()) {
+            projectDetails project = iterator.next();
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                iterator.remove();
+                System.out.println("Removed project: " + project);
+                break;
+            }
+        }
+    }
+
+    // Method to increase the cost of projects by 15% in the given domain
+    private static void increaseCostByDomain(Set<projectDetails> projectSet, String domain) {
+        for (projectDetails project : projectSet) {
+            if (project.getDomain().equalsIgnoreCase(domain)) {
+                double newCost = project.getCost() * 1.15;
+                project.setCost(newCost);
+                System.out.println("Updated project with new cost: " + project);
+            }
+        }
+    }
+
+    // Method to increase the team size by 7% in the given domain
+    private static void increaseTeamSizeByDomain(Set<projectDetails> projectSet, String domain) {
+        for (projectDetails project : projectSet) {
+            if (project.getDomain().equalsIgnoreCase(domain)) {
+                int newTeamSize = (int) (project.getTeamSize() * 1.07);
+                project.setTeamSize(newTeamSize);
+                System.out.println("Updated project with new team size: " + project);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Initialize HashSet to store projects
+        Set<projectDetails> projectSet = new HashSet<>();
+        loadProjects(projectSet);
+        
+        // Display all projects
+        displayProjects(projectSet);
+        
+        // Check if a project exists
+        System.out.println("Is project 'AI' present? " + findProjectByName(projectSet, "AI"));
+        
+        // Find all projects in a specific domain
+        findProjectsByDomain(projectSet, "RAIL-ROAD");
+
+        // Find the total cost of projects in a specific domain
+        double totalCost = totalCostByDomain(projectSet, "PAYMENT");
+        System.out.println("Total cost in 'PAYMENT' domain: " + totalCost);
+
+        // Find all projects handled by a specific manager
+        findProjectsByManager(projectSet, "Rani");
+
+        // Change the team size for a given project
+        changeTeamSize(projectSet, "RFID", 6);
+
+        // Change the domain for a given project
+        changeDomain
